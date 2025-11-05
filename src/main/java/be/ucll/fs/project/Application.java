@@ -1,4 +1,4 @@
-package be.ucll.se.courses.backend;
+package be.ucll.fs.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
