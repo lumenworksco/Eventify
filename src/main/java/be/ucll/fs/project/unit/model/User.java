@@ -1,0 +1,84 @@
+package be.ucll.fs.project.unit.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long userId;
+
+    @NotBlank(message = "User name is required")
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
+    @Column(name = "location", length = 150)
+    private String location;
+
+    @Column(name = "event_preference", length = 150)
+    private String eventPreference;
+
+    @NotNull(message = "City is required")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
+
+    public User() {
+    }
+
+    public User(String name, String location, String eventPreference, City city) {
+        this.name = name;
+        this.location = location;
+        this.eventPreference = eventPreference;
+        this.city = city;
+    }
+
+    // Getters and Setters
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEventPreference() {
+        return eventPreference;
+    }
+
+    public void setEventPreference(String eventPreference) {
+        this.eventPreference = eventPreference;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+}
