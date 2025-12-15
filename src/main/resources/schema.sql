@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS cities (
 CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'USER',
     location VARCHAR(150),
     event_preference VARCHAR(150),
     city_id INTEGER NOT NULL,
@@ -49,8 +51,11 @@ CREATE TABLE IF NOT EXISTS events (
     event_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
+    available_tickets INTEGER,
     CONSTRAINT chk_event_time
-        CHECK (end_time > start_time)
+        CHECK (end_time > start_time),
+    CONSTRAINT chk_available_tickets
+        CHECK (available_tickets IS NULL OR available_tickets >= 0)
 );
 
 -- =========================
@@ -84,5 +89,26 @@ CREATE TABLE IF NOT EXISTS event_venues (
     CONSTRAINT fk_ev_venue
         FOREIGN KEY (venue_id)
         REFERENCES venues(venue_id)
+        ON DELETE CASCADE
+);
+
+-- =========================
+-- Tickets
+-- Users can purchase tickets for events
+-- =========================
+CREATE TABLE IF NOT EXISTS tickets (
+    ticket_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    event_id INTEGER NOT NULL,
+    purchase_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    price NUMERIC(10, 2) NOT NULL CHECK (price > 0),
+    seat_number VARCHAR(50),
+    CONSTRAINT fk_ticket_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_ticket_event
+        FOREIGN KEY (event_id)
+        REFERENCES events(event_id)
         ON DELETE CASCADE
 );

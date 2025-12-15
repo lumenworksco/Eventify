@@ -1,5 +1,7 @@
 package be.ucll.fs.project.controller;
 
+import be.ucll.fs.project.dto.VenueDTO;
+import be.ucll.fs.project.unit.model.City;
 import be.ucll.fs.project.unit.model.Venue;
 import be.ucll.fs.project.service.VenueService;
 import jakarta.validation.Valid;
@@ -47,13 +49,21 @@ public class VenueController {
     }
 
     @PostMapping
-    public ResponseEntity<Venue> createVenue(@Valid @RequestBody Venue venue) {
+    public ResponseEntity<Venue> createVenue(@Valid @RequestBody VenueDTO venueDTO) {
+        City city = new City();
+        city.setCityId(venueDTO.getCityId());
+        Venue venue = new Venue(venueDTO.getName(), venueDTO.getAddress(), 
+                                venueDTO.getCapacity(), city);
         Venue createdVenue = venueService.createVenue(venue);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVenue);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Venue> updateVenue(@PathVariable Long id, @Valid @RequestBody Venue venue) {
+    public ResponseEntity<Venue> updateVenue(@PathVariable Long id, @Valid @RequestBody VenueDTO venueDTO) {
+        City city = new City();
+        city.setCityId(venueDTO.getCityId());
+        Venue venue = new Venue(venueDTO.getName(), venueDTO.getAddress(), 
+                                venueDTO.getCapacity(), city);
         Venue updatedVenue = venueService.updateVenue(id, venue);
         return ResponseEntity.ok(updatedVenue);
     }

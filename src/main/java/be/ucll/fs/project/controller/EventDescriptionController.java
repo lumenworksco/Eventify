@@ -1,5 +1,7 @@
 package be.ucll.fs.project.controller;
 
+import be.ucll.fs.project.dto.EventDescriptionDTO;
+import be.ucll.fs.project.unit.model.Event;
 import be.ucll.fs.project.unit.model.EventDescription;
 import be.ucll.fs.project.service.EventDescriptionService;
 import jakarta.validation.Valid;
@@ -42,14 +44,26 @@ public class EventDescriptionController {
     }
 
     @PostMapping
-    public ResponseEntity<EventDescription> createEventDescription(@Valid @RequestBody EventDescription eventDescription) {
+    public ResponseEntity<EventDescription> createEventDescription(@Valid @RequestBody EventDescriptionDTO eventDescriptionDTO) {
+        Event event = new Event();
+        event.setEventId(eventDescriptionDTO.getEventId());
+        EventDescription eventDescription = new EventDescription();
+        eventDescription.setEvent(event);
+        eventDescription.setEventType(eventDescriptionDTO.getEventType());
+        eventDescription.setExtraDescription(eventDescriptionDTO.getDescription());
         EventDescription createdDescription = eventDescriptionService.createEventDescription(eventDescription);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDescription);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<EventDescription> updateEventDescription(
-            @PathVariable Long id, @Valid @RequestBody EventDescription eventDescription) {
+            @PathVariable Long id, @Valid @RequestBody EventDescriptionDTO eventDescriptionDTO) {
+        Event event = new Event();
+        event.setEventId(eventDescriptionDTO.getEventId());
+        EventDescription eventDescription = new EventDescription();
+        eventDescription.setEvent(event);
+        eventDescription.setEventType(eventDescriptionDTO.getEventType());
+        eventDescription.setExtraDescription(eventDescriptionDTO.getDescription());
         EventDescription updatedDescription = eventDescriptionService.updateEventDescription(id, eventDescription);
         return ResponseEntity.ok(updatedDescription);
     }

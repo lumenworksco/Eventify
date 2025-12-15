@@ -4,6 +4,7 @@ import be.ucll.fs.project.unit.model.City;
 import be.ucll.fs.project.unit.model.User;
 import be.ucll.fs.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +16,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final CityService cityService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository, CityService cityService) {
         this.userRepository = userRepository;
         this.cityService = cityService;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public List<User> getAllUsers() {
@@ -53,6 +56,15 @@ public class UserService {
             City city = cityService.getCityById(user.getCity().getCityId());
             user.setCity(city);
         }
+        // Set default role if not provided
+        if (user.getRole() == null) {
+            user.setRole(be.ucll.fs.project.unit.model.Role.USER);
+        }
+        // Hash the password before saving
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hashedPassword);
+        }
         return userRepository.save(user);
     }
 
@@ -68,11 +80,21 @@ public class UserService {
             user.setCity(city);
         }
         
+        // Hash the password if it's being updated
+        if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+            String hashedPassword = passwordEncoder.encode(userDetails.getPassword());
+            user.setPassword(hashedPassword);
+        }
+        
         return userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
         User user = getUserById(id);
         userRepository.delete(user);
+    }
+
+    public boolean verifyPassword(String rawPassword, String hashedPassword) {
+        return passwordEncoder.matches(rawPassword, hashedPassword);
     }
 }

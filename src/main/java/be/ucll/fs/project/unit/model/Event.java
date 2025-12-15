@@ -37,6 +37,9 @@ public class Event {
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
+    @Column(name = "available_tickets")
+    private Integer availableTickets;
+
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private EventDescription eventDescription;
 
@@ -136,5 +139,13 @@ public class Event {
     public void removeVenue(Venue venue) {
         this.venues.remove(venue);
         venue.getEvents().remove(this);
+    }
+
+    public Integer getAvailableTickets() {
+        return availableTickets;
+    }
+
+    public void setAvailableTickets(Integer availableTickets) {
+        this.availableTickets = availableTickets;
     }
 }

@@ -24,4 +24,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     
     @Query("SELECT e FROM Event e WHERE e.eventDate >= :date ORDER BY e.eventDate ASC")
     List<Event> findUpcomingEvents(@Param("date") LocalDate date);
+    
+    @Query("SELECT e FROM Event e JOIN e.eventDescription ed WHERE LOWER(ed.eventType) = LOWER(:eventType)")
+    List<Event> findByEventType(@Param("eventType") String eventType);
+    
+    @Query("SELECT DISTINCT ed.eventType FROM EventDescription ed WHERE ed.eventType IS NOT NULL ORDER BY ed.eventType")
+    List<String> findAllEventTypes();
 }

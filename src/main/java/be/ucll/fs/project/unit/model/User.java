@@ -20,6 +20,15 @@ public class User {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
+    @NotBlank(message = "Password is required")
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @NotNull(message = "Role is required")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
+
     @Column(name = "location", length = 150)
     private String location;
 
@@ -34,8 +43,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String location, String eventPreference, City city) {
+    public User(String name, String password, Role role, String location, String eventPreference, City city) {
         this.name = name;
+        this.password = password;
+        this.role = role;
         this.location = location;
         this.eventPreference = eventPreference;
         this.city = city;
@@ -80,5 +91,21 @@ public class User {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

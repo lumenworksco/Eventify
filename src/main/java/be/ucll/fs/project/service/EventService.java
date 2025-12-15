@@ -114,4 +114,12 @@ public class EventService {
         
         return eventRepository.save(event);
     }
+
+    public List<Event> getEventsByType(String eventType) {
+        return eventRepository.findByEventType(eventType);
+    }
+
+    public List<String> getAllEventTypes() {
+        return eventRepository.findAllEventTypes();
+    }
 }

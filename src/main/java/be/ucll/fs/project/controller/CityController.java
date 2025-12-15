@@ -1,5 +1,6 @@
 package be.ucll.fs.project.controller;
 
+import be.ucll.fs.project.dto.CityDTO;
 import be.ucll.fs.project.unit.model.City;
 import be.ucll.fs.project.service.CityService;
 import jakarta.validation.Valid;
@@ -47,13 +48,15 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<City> createCity(@Valid @RequestBody City city) {
+    public ResponseEntity<City> createCity(@Valid @RequestBody CityDTO cityDTO) {
+        City city = new City(cityDTO.getName(), cityDTO.getRegion(), cityDTO.getCountry());
         City createdCity = cityService.createCity(city);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCity);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<City> updateCity(@PathVariable Long id, @Valid @RequestBody City city) {
+    public ResponseEntity<City> updateCity(@PathVariable Long id, @Valid @RequestBody CityDTO cityDTO) {
+        City city = new City(cityDTO.getName(), cityDTO.getRegion(), cityDTO.getCountry());
         City updatedCity = cityService.updateCity(id, city);
         return ResponseEntity.ok(updatedCity);
     }
