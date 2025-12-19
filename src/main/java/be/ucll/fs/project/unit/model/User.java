@@ -21,7 +21,7 @@ public class User {
     private String name;
 
     @NotBlank(message = "Password is required")
-    @Column(name = "password", nullable = false)
+    @Column(name = "\"password\"", nullable = false)
     private String password;
 
     @NotNull(message = "Role is required")

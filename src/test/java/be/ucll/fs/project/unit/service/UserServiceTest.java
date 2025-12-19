@@ -1,6 +1,8 @@
-package be.ucll.fs.project.service;
+package be.ucll.fs.project.unit.service;
 
 import be.ucll.fs.project.repository.UserRepository;
+import be.ucll.fs.project.service.CityService;
+import be.ucll.fs.project.service.UserService;
 import be.ucll.fs.project.unit.model.City;
 import be.ucll.fs.project.unit.model.Role;
 import be.ucll.fs.project.unit.model.User;
