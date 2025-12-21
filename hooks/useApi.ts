@@ -8,13 +8,20 @@ import type { Event, Venue, City, Ticket } from '../services/api';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://eventify-back-end.onrender.com/api';
 
+// Timeout for API requests (2 minutes for cold starts on Render free tier)
+const API_TIMEOUT_MS = 120000;
+
 interface ApiError {
   message: string;
   status: number;
+  isTimeout?: boolean;
 }
 
-// Fetcher function for SWR
+// Fetcher function for SWR with timeout support
 async function fetcher<T>(url: string, token?: string): Promise<T> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
@@ -22,26 +29,55 @@ async function fetcher<T>(url: string, token?: string): Promise<T> {
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
-  const response = await fetch(url, {
-    headers,
-  });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    const error: ApiError = {
-      message: errorData.message || `HTTP error! status: ${response.status}`,
-      status: response.status,
-    };
-    throw error;
+  try {
+    const response = await fetch(url, {
+      headers,
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const error: ApiError = {
+        message: errorData.message || `HTTP error! status: ${response.status}`,
+        status: response.status,
+      };
+      throw error;
+    }
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : ({} as T);
+  } catch (err) {
+    clearTimeout(timeoutId);
+    
+    if (err instanceof Error && err.name === 'AbortError') {
+      const error: ApiError = {
+        message: 'Request timed out. The server may be starting up (cold start). Please try again.',
+        status: 408,
+        isTimeout: true,
+      };
+      throw error;
+    }
+    
+    // Handle network errors (Failed to fetch)
+    if (err instanceof TypeError && err.message === 'Failed to fetch') {
+      const error: ApiError = {
+        message: 'Failed to fetch',
+        status: 0,
+      };
+      throw error;
+    }
+    
+    throw err;
   }
-
-  const text = await response.text();
-  return text ? JSON.parse(text) : ({} as T);
 }
 
 /**
  * Custom hook for fetching data with SWR
  * Includes authentication token automatically when user is logged in
+ * Configured with retry logic for handling cold starts on Render free tier
  */
 export function useApi<T>(
   endpoint: string | null,
@@ -56,6 +92,13 @@ export function useApi<T>(
     (url: string) => fetcher<T>(url, user?.token),
     {
       revalidateOnFocus: false,
+      // Retry up to 3 times with exponential backoff for cold starts
+      errorRetryCount: 3,
+      errorRetryInterval: 5000,
+      // Keep showing stale data while revalidating
+      revalidateOnReconnect: true,
+      // Don't dedupe requests during cold start scenarios
+      dedupingInterval: 0,
       ...config,
     }
   );

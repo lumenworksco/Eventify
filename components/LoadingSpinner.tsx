@@ -1,18 +1,36 @@
 'use client';
+import { useState, useEffect } from 'react';
 
 interface LoadingSpinnerProps {
   message?: string;
   size?: 'small' | 'medium' | 'large';
+  showColdStartHint?: boolean;
+  coldStartDelayMs?: number;
 }
 
 /**
  * Reusable LoadingSpinner component
  * Shows loading state with optional message
+ * Can show cold start hint after a delay for free tier hosting services
  */
 export default function LoadingSpinner({ 
   message = 'Loading...', 
-  size = 'medium' 
+  size = 'medium',
+  showColdStartHint = true,
+  coldStartDelayMs = 5000,
 }: LoadingSpinnerProps) {
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    if (!showColdStartHint) return;
+    
+    const timer = setTimeout(() => {
+      setShowHint(true);
+    }, coldStartDelayMs);
+
+    return () => clearTimeout(timer);
+  }, [showColdStartHint, coldStartDelayMs]);
+
   const sizeClasses = {
     small: { spinner: 16, text: '0.875rem' },
     medium: { spinner: 24, text: '1rem' },
@@ -37,6 +55,11 @@ export default function LoadingSpinner({
       <p style={{ marginTop: '0.75rem', fontSize: textSize }} className="muted">
         {message}
       </p>
+      {showHint && (
+        <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#6b7280' }}>
+          ⏳ The server is waking up from sleep mode. This may take up to 1-2 minutes...
+        </p>
+      )}
       <style jsx>{`
         @keyframes spin {
           to { transform: rotate(360deg); }
