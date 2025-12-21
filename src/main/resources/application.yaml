@@ -38,4 +38,9 @@ springdoc:
 
 cors:
   allowed-origins:
+    - http://localhost:3000
     - http://localhost:8080
+    - https://eventify-front-end.onrender.com
+  allowed-origin-patterns:
+    - https://*.onrender.com
+    - https://*.vercel.app
