@@ -174,7 +174,7 @@ const translations: Record<Locale, Translations> = {
     // Common
     'common.loading': 'Loading...',
     'common.error': 'Error',
-    'common.backendError': 'Make sure the backend server is running at http://localhost:8080',
+    'common.backendError': 'Unable to connect to the backend server. Please try again later.',
     'common.required': 'required',
     'common.retry': 'Retry',
     
@@ -375,7 +375,7 @@ const translations: Record<Locale, Translations> = {
     // Common
     'common.loading': 'Chargement...',
     'common.error': 'Erreur',
-    'common.backendError': 'Assurez-vous que le serveur backend fonctionne sur http://localhost:8080',
+    'common.backendError': 'Impossible de se connecter au serveur backend. Veuillez réessayer plus tard.',
     'common.required': 'obligatoire',
     'common.retry': 'Réessayer',
     
@@ -575,7 +575,7 @@ const translations: Record<Locale, Translations> = {
     // Common
     'common.loading': 'Laden...',
     'common.error': 'Fehler',
-    'common.backendError': 'Stellen Sie sicher, dass der Backend-Server auf http://localhost:8080 läuft',
+    'common.backendError': 'Verbindung zum Backend-Server nicht möglich. Bitte versuchen Sie es später erneut.',
     'common.required': 'erforderlich',
     'common.retry': 'Erneut versuchen',
     

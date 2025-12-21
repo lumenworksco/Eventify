@@ -6,7 +6,7 @@ import useSWR, { SWRConfiguration, SWRResponse } from 'swr';
 import { useAuth } from '../context/AuthContext';
 import type { Event, Venue, City, Ticket } from '../services/api';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface ApiError {
   message: string;
