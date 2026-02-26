@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Tools
+.claude/
+
+# Backend
+Eventify-Back-End/target/
+Eventify-Back-End/application.yaml
+
+# Frontend
+Eventify-Front-End/node_modules/
+Eventify-Front-End/.next/
+Eventify-Front-End/out/
+Eventify-Front-End/build/
+Eventify-Front-End/*.tsbuildinfo
+
+# Env files
+.env
+.env.local
+.env*.local
