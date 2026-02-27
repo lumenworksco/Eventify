@@ -5,14 +5,10 @@ spring:
   application:
     name: eventify
   datasource:
-    url: "jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:eventify}"
+    url: "jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:eventify}?sslmode=require&gssEncMode=disable"
     username: ${PGUSER:postgres}
     password: ${PGPASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
-    hikari:
-      data-source-properties:
-        sslmode: ${PGSSLMODE:require}
-        gssEncMode: disable
   jpa:
     show-sql: false
     hibernate:
