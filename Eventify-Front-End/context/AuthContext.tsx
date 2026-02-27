@@ -89,7 +89,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, password }),
-        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -124,7 +123,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, password, cityId: 1 }),
-        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -155,9 +153,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(async () => {
     // Call backend to properly terminate the session
     try {
-      await fetch(`${API_BASE_URL}/users/logout`, { 
-        method: 'POST', 
-        credentials: 'include',
+      await fetch(`${API_BASE_URL}/users/logout`, {
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${user?.token}`,
         },
