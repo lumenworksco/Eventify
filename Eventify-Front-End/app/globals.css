@@ -320,6 +320,13 @@ header.site-header {
   gap: 0;
 }
 
+/* ===== Venues Grid ===== */
+.venues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
 /* ===== Venue Card v2 ===== */
 .venue-card-v2 {
   background: var(--card);

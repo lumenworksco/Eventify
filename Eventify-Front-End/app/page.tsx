@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { api, Event, Venue, City } from '../services/api';
-import { useEvents } from '../hooks/useApi';
+import { useEvents, useCities, useVenues } from '../hooks/useApi';
 import EventCard from '../components/EventCard';
 
 export default function Page() {
@@ -14,6 +14,8 @@ export default function Page() {
   const [cityEvents, setCityEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(false);
   const { data: allEvents } = useEvents();
+  const { data: cities } = useCities();
+  const { data: venues } = useVenues();
 
   // Get upcoming events (next 6)
   const upcomingEvents = (allEvents || [])
@@ -92,7 +94,7 @@ export default function Page() {
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
-                {t('nav.profile') || 'My Profile'}
+                {t('nav.profile')}
               </Link>
             ) : (
               <Link href="/register" className="btn btn-ghost btn-lg">
@@ -115,12 +117,12 @@ export default function Page() {
           </div>
           <div className="stat-divider" />
           <div className="stat-item">
-            <span className="stat-number">{eventTypes.size}</span>
-            <span className="stat-label">Categories</span>
+            <span className="stat-number">{(venues || []).length}</span>
+            <span className="stat-label">Venues</span>
           </div>
           <div className="stat-divider" />
           <div className="stat-item">
-            <span className="stat-number">5</span>
+            <span className="stat-number">{(cities || []).length}</span>
             <span className="stat-label">Cities</span>
           </div>
         </div>

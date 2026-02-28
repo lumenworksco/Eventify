@@ -42,6 +42,8 @@ const translations: Record<Locale, Translations> = {
     'nav.login': 'Login',
     'nav.logout': 'Logout',
     'nav.register': 'Register',
+    'nav.profile': 'Profile',
+    'nav.venues': 'Venues',
     'nav.welcome': 'Welcome, {name}',
     
     // Home page
@@ -120,6 +122,14 @@ const translations: Record<Locale, Translations> = {
     'cities.moreEvents': '+ {count} more events',
     'cities.capacity': 'Capacity: {count}',
     
+    // Venues listing page
+    'venues.title': 'Venues',
+    'venues.subtitle': 'Explore all venues across Belgian cities. Click any venue to see its full schedule.',
+    'venues.filterCity': 'Filter by city',
+    'venues.allCities': 'All cities',
+    'venues.noVenues': 'No venues found matching the filters.',
+    'venues.eventsCount': '{count} upcoming events',
+
     // Venue page
     'venue.schedule': 'Schedule',
     'venue.noEvents': 'Nothing to see here yet.',
@@ -243,6 +253,8 @@ const translations: Record<Locale, Translations> = {
     'nav.login': 'Connexion',
     'nav.logout': 'Déconnexion',
     'nav.register': 'S\'inscrire',
+    'nav.profile': 'Profil',
+    'nav.venues': 'Lieux',
     'nav.welcome': 'Bienvenue, {name}',
     
     // Home page
@@ -321,6 +333,14 @@ const translations: Record<Locale, Translations> = {
     'cities.moreEvents': '+ {count} autres événements',
     'cities.capacity': 'Capacité : {count}',
     
+    // Venues listing page
+    'venues.title': 'Lieux',
+    'venues.subtitle': 'Explorez tous les lieux à travers les villes belges. Cliquez sur un lieu pour voir son programme.',
+    'venues.filterCity': 'Filtrer par ville',
+    'venues.allCities': 'Toutes les villes',
+    'venues.noVenues': 'Aucun lieu trouvé correspondant aux filtres.',
+    'venues.eventsCount': '{count} événements à venir',
+
     // Venue page
     'venue.schedule': 'Programme',
     'venue.noEvents': 'Rien à voir ici pour le moment.',
@@ -444,6 +464,8 @@ const translations: Record<Locale, Translations> = {
     'nav.login': 'Anmelden',
     'nav.logout': 'Abmelden',
     'nav.register': 'Registrieren',
+    'nav.profile': 'Profil',
+    'nav.venues': 'Veranstaltungsorte',
     'nav.welcome': 'Willkommen, {name}',
     
     // Home page
@@ -522,6 +544,14 @@ const translations: Record<Locale, Translations> = {
     'cities.moreEvents': '+ {count} weitere Veranstaltungen',
     'cities.capacity': 'Kapazität: {count}',
     
+    // Venues listing page
+    'venues.title': 'Veranstaltungsorte',
+    'venues.subtitle': 'Entdecken Sie alle Veranstaltungsorte in belgischen Städten. Klicken Sie auf einen Ort, um das Programm zu sehen.',
+    'venues.filterCity': 'Nach Stadt filtern',
+    'venues.allCities': 'Alle Städte',
+    'venues.noVenues': 'Keine Veranstaltungsorte gefunden.',
+    'venues.eventsCount': '{count} kommende Veranstaltungen',
+
     // Venue page
     'venue.schedule': 'Programm',
     'venue.noEvents': 'Hier gibt es noch nichts zu sehen.',

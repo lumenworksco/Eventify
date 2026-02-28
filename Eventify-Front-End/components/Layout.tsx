@@ -26,9 +26,12 @@ export default function Layout({ children }: { children: ReactNode }) {
               <li>
                 <Link href="/events">{t('nav.events')}</Link>
               </li>
+              <li>
+                <Link href="/venues">{t('nav.venues')}</Link>
+              </li>
               {isAuthenticated && (
                 <li>
-                  <Link href="/profile">{t('nav.profile') || 'Profile'}</Link>
+                  <Link href="/profile">{t('nav.profile')}</Link>
                 </li>
               )}
               {/* Only show Add Event to ADMIN and ORGANIZER roles */}
