@@ -94,11 +94,11 @@ export function useApi<T>(
       revalidateOnFocus: false,
       // Retry up to 3 times with exponential backoff for cold starts
       errorRetryCount: 3,
-      errorRetryInterval: 5000,
+      errorRetryInterval: 10000,
       // Keep showing stale data while revalidating
       revalidateOnReconnect: true,
-      // Don't dedupe requests during cold start scenarios
-      dedupingInterval: 0,
+      // Dedupe requests within 10s to prevent request storms during cold starts
+      dedupingInterval: 10000,
       ...config,
     }
   );
