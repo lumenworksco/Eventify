@@ -4,7 +4,7 @@
  */
 import useSWR, { SWRConfiguration, SWRResponse } from 'swr';
 import { useAuth } from '../context/AuthContext';
-import type { Event, Venue, City, Ticket } from '../services/api';
+import type { Event, Venue, City } from '../services/api';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://eventify-back-end.onrender.com/api';
 
@@ -119,20 +119,6 @@ export function useEvent(eventId: number | null) {
 }
 
 /**
- * Hook for fetching events by city
- */
-export function useEventsByCity(cityId: number | null) {
-  return useApi<Event[]>(cityId ? `/events/city/${cityId}` : null);
-}
-
-/**
- * Hook for fetching upcoming events
- */
-export function useUpcomingEvents() {
-  return useApi<Event[]>('/events/upcoming');
-}
-
-/**
  * Hook for fetching venues
  */
 export function useVenues() {
@@ -147,13 +133,6 @@ export function useVenue(venueId: number | null) {
 }
 
 /**
- * Hook for fetching venues by city
- */
-export function useVenuesByCity(cityId: number | null) {
-  return useApi<Venue[]>(cityId ? `/venues/city/${cityId}` : null);
-}
-
-/**
  * Hook for fetching cities
  */
 export function useCities() {
@@ -165,29 +144,6 @@ export function useCities() {
  */
 export function useCity(cityId: number | null) {
   return useApi<City>(cityId ? `/cities/${cityId}` : null);
-}
-
-/**
- * Hook for fetching tickets
- */
-export function useTickets() {
-  return useApi<Ticket[]>('/tickets');
-}
-
-/**
- * Hook for fetching tickets by user
- */
-export function useTicketsByUser(userId: number | null) {
-  return useApi<Ticket[]>(userId ? `/tickets/user/${userId}` : null);
-}
-
-/**
- * Hook for fetching available tickets for an event
- */
-export function useAvailableTickets(eventId: number | null) {
-  return useApi<{ eventId: number; availableTickets: number | string }>(
-    eventId ? `/tickets/event/${eventId}/available` : null
-  );
 }
 
 /**

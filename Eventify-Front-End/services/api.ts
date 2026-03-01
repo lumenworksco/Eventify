@@ -386,31 +386,3 @@ class ApiService {
 
 // Export singleton instance
 export const api = new ApiService(API_BASE_URL);
-
-// Also export for backward compatibility with in-memory data structure
-// This allows gradual migration
-export function convertToLegacyFormat(events: Event[], venues: Venue[], cities: City[]) {
-  const legacyCities = cities.map(c => ({
-    id: `c${c.cityId}`,
-    name: c.name,
-  }));
-
-  const legacyVenues = venues.map(v => ({
-    id: `v${v.venueId}`,
-    name: v.name,
-    cityId: `c${v.city.cityId}`,
-    bio: v.address || '',
-  }));
-
-  const legacyEvents = events.map(e => ({
-    id: `e${e.eventId}`,
-    title: e.title,
-    venueId: e.venues && e.venues.length > 0 ? `v${e.venues[0].venueId}` : '',
-    date: `${e.eventDate}T${e.startTime.substring(0, 5)}`,
-    description: e.eventDescription?.extraDescription || '',
-    hasTicket: e.availableTickets !== null && e.availableTickets > 0,
-    type: e.eventDescription?.eventType || 'general',
-  }));
-
-  return { cities: legacyCities, venues: legacyVenues, events: legacyEvents };
-}

@@ -88,7 +88,7 @@ export default function ProfileClient({ user, error }: ProfileClientProps) {
       }}>
         <div className="card" style={{ maxWidth: 400, textAlign: 'center' }}>
           <h2>{t('profile.title')}</h2>
-          <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{error}</p>
+          <p style={{ color: 'var(--danger)', marginBottom: '1rem' }}>{error}</p>
           <Link href="/login" className="btn btn-primary">
             {t('nav.login')}
           </Link>

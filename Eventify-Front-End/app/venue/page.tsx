@@ -1,5 +1,6 @@
 'use client';
 import { Suspense, useEffect } from 'react';
+import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useLanguage } from '../../context/LanguageContext';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -28,9 +29,9 @@ function VenueRedirect() {
         <h2>{t('venue.notFound')}</h2>
         <div className="card">
           {t('venue.idMissing')}
-          <a href="/events" className="btn btn-ghost" style={{ marginLeft: 8 }}>
+          <Link href="/events" className="btn btn-ghost" style={{ marginLeft: 8 }}>
             {t('nav.events')}
-          </a>
+          </Link>
         </div>
       </div>
     );

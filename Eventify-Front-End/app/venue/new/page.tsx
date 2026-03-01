@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import { useLanguage } from '../../../context/LanguageContext';
@@ -61,11 +62,11 @@ export default function NewVenuePage() {
     return (
       <div>
         <h2>{t('addVenue.title')}</h2>
-        <div className="card" style={{ color: '#ef4444' }}>
+        <div className="card" style={{ color: 'var(--danger)' }}>
           {t('addVenue.loginRequired')}
-          <a href="/login" className="btn btn-primary" style={{ marginLeft: 12 }}>
+          <Link href="/login" className="btn btn-primary" style={{ marginLeft: 12 }}>
             {t('nav.login')}
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -75,7 +76,7 @@ export default function NewVenuePage() {
     return (
       <div>
         <h2>{t('addVenue.title')}</h2>
-        <div className="card" style={{ color: '#ef4444' }}>
+        <div className="card" style={{ color: 'var(--danger)' }}>
           {t('addVenue.noPermission')}
         </div>
       </div>
@@ -186,8 +187,8 @@ export default function NewVenuePage() {
                 marginBottom: 16, 
                 padding: 12, 
                 borderRadius: 6,
-                backgroundColor: result.success ? '#dcfce7' : '#fee2e2',
-                color: result.success ? '#166534' : '#991b1b'
+                backgroundColor: result.success ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)',
+                color: result.success ? 'var(--success)' : 'var(--danger)'
               }}
             >
               {result.success ? (

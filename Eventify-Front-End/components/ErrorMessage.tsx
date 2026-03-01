@@ -21,11 +21,11 @@ export default function ErrorMessage({
   const { t } = useLanguage();
   
   return (
-    <div className="card" style={{ borderLeft: '4px solid #ef4444' }}>
-      <div style={{ color: '#ef4444', fontWeight: 600, marginBottom: '0.5rem' }}>
+    <div className="card" style={{ borderLeft: '4px solid var(--danger)' }}>
+      <div style={{ color: 'var(--danger)', fontWeight: 600, marginBottom: '0.5rem' }}>
         {title || t('common.error')}
       </div>
-      <p style={{ color: '#dc2626', marginBottom: '0.5rem' }}>{message}</p>
+      <p style={{ color: 'var(--danger)', marginBottom: '0.5rem' }}>{message}</p>
       {showBackendHint && (
         <p className="small muted">
           {t('common.backendError')}

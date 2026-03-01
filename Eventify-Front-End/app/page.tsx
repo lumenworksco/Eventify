@@ -113,17 +113,17 @@ export default function Page() {
         <div className="hero-stats">
           <div className="stat-item">
             <span className="stat-number">{(allEvents || []).length}</span>
-            <span className="stat-label">Events</span>
+            <span className="stat-label">{t('nav.events')}</span>
           </div>
           <div className="stat-divider" />
           <div className="stat-item">
             <span className="stat-number">{(venues || []).length}</span>
-            <span className="stat-label">Venues</span>
+            <span className="stat-label">{t('nav.venues')}</span>
           </div>
           <div className="stat-divider" />
           <div className="stat-item">
             <span className="stat-number">{(cities || []).length}</span>
-            <span className="stat-label">Cities</span>
+            <span className="stat-label">{t('nav.cities')}</span>
           </div>
         </div>
       </section>
@@ -234,10 +234,7 @@ export default function Page() {
           <div className="feature-card">
             <div className="feature-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="12" y1="18" x2="12" y2="12" />
-                <line x1="9" y1="15" x2="15" y2="15" />
+                <path d="M2 12a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V7h-5a8 8 0 0 0-5 2 8 8 0 0 0-5-2H2Z" />
               </svg>
             </div>
             <h3>{t('home.addTitle')}</h3>

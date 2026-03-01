@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useVenues } from '../../../hooks/useApi';
 import { useAuth } from '../../../context/AuthContext';
@@ -61,11 +62,11 @@ export default function NewEventPage() {
     return (
       <div>
         <h2>{t('addEvent.title')}</h2>
-        <div className="card" style={{ color: '#ef4444' }}>
+        <div className="card" style={{ color: 'var(--danger)' }}>
           {t('addEvent.loginRequired')}
-          <a href="/login" className="btn btn-primary" style={{ marginLeft: 12 }}>
+          <Link href="/login" className="btn btn-primary" style={{ marginLeft: 12 }}>
             {t('nav.login')}
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -75,7 +76,7 @@ export default function NewEventPage() {
     return (
       <div>
         <h2>{t('addEvent.title')}</h2>
-        <div className="card" style={{ color: '#ef4444' }}>
+        <div className="card" style={{ color: 'var(--danger)' }}>
           {t('addEvent.noPermission')}
         </div>
       </div>

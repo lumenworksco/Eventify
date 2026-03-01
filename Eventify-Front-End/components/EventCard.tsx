@@ -1,19 +1,13 @@
 'use client';
 import Link from 'next/link';
-import { Event, Venue } from '../services/api';
+import { Event } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
 
 interface EventCardProps {
   event: Event;
-  onViewSchedule?: (venueId: number) => void;
-  showVenueLink?: boolean;
 }
 
-export default function EventCard({
-  event,
-  onViewSchedule,
-  showVenueLink = true,
-}: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
   const { t } = useLanguage();
   const primaryVenue = event.venues && event.venues.length > 0 ? event.venues[0] : null;
   const city = primaryVenue?.city;
@@ -36,7 +30,7 @@ export default function EventCard({
             {eventType && <span className="event-type-badge">{eventType}</span>}
             {hasTickets && (
               <span className="event-tickets-badge">
-                {event.availableTickets} tickets
+                {t('events.ticketsAvailable', { count: event.availableTickets || 0 })}
               </span>
             )}
           </div>

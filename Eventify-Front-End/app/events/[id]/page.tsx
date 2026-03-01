@@ -226,7 +226,20 @@ export default function EventDetailPage() {
                   <p className="event-detail-info-label">{t('eventDetail.venue')}</p>
                   <p className="event-detail-info-value">{primaryVenue.name}</p>
                   <p className="event-detail-info-sub">
-                    {primaryVenue.address && <>{primaryVenue.address}<br /></>}
+                    {primaryVenue.address && (
+                      <>
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${primaryVenue.address}, ${primaryVenue.city?.name || ''}, ${primaryVenue.city?.country || ''}`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: 'var(--accent)', textDecoration: 'none' }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {primaryVenue.address}
+                        </a>
+                        <br />
+                      </>
+                    )}
                     {primaryVenue.city?.name}
                     {primaryVenue.city?.region && `, ${primaryVenue.city.region}`}
                     {primaryVenue.capacity && <><br />{t('venue.capacity')}: {primaryVenue.capacity.toLocaleString()}</>}

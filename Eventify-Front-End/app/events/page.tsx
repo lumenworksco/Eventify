@@ -1,6 +1,5 @@
 "use client";
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useEvents, useCities, useEventTypes } from '../../hooks/useApi';
 import { useLanguage } from '../../context/LanguageContext';
 import { Venue } from '../../services/api';
@@ -12,7 +11,6 @@ export default function EventsPage() {
   const [typeFilter, setTypeFilter] = useState('');
   const [cityFilter, setCityFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const router = useRouter();
   const { t } = useLanguage();
 
   const { data: events, error: eventsError, isLoading: eventsLoading, mutate: mutateEvents } = useEvents();
@@ -50,10 +48,6 @@ export default function EventsPage() {
       return e.venues?.some((v: Venue) => v?.city?.cityId === parseInt(cityFilter));
     })
     .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
-
-  function handleViewSchedule(venueId: number) {
-    router.push(`/venue/${venueId}`);
-  }
 
   if (isLoading) {
     return (
@@ -102,7 +96,7 @@ export default function EventsPage() {
             </svg>
             <input
               type="text"
-              placeholder="Search events, artists, venues..."
+              placeholder={t('events.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{ paddingLeft: 40 }}
@@ -133,7 +127,9 @@ export default function EventsPage() {
 
       <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <p className="small muted">
-          {filtered.length} {filtered.length === 1 ? 'event' : 'events'} found
+          {filtered.length === 1
+            ? t('events.eventsFound', { count: filtered.length })
+            : t('events.eventsFoundPlural', { count: filtered.length })}
           {(searchQuery || typeFilter || cityFilter) && (
             <button
               onClick={() => { setSearchQuery(''); setTypeFilter(''); setCityFilter(''); }}
@@ -147,7 +143,7 @@ export default function EventsPage() {
                 marginLeft: 8,
               }}
             >
-              Clear filters
+              {t('events.clearFilters')}
             </button>
           )}
         </p>
@@ -155,8 +151,8 @@ export default function EventsPage() {
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <p>No events match your search</p>
-          <p className="small muted" style={{ marginTop: 8 }}>Try adjusting your filters or search terms</p>
+          <p>{t('events.noMatch')}</p>
+          <p className="small muted" style={{ marginTop: 8 }}>{t('events.noMatchHint')}</p>
         </div>
       ) : (
         <div className="events-list">
@@ -164,7 +160,6 @@ export default function EventsPage() {
             <EventCard
               key={event.eventId}
               event={event}
-              onViewSchedule={handleViewSchedule}
             />
           ))}
         </div>

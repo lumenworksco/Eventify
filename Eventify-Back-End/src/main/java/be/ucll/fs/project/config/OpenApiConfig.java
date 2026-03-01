@@ -35,4 +35,3 @@ public class OpenApiConfig {
                                         .bearerFormat("JWT")));
     }
 }
-// I know this probably wasn't asked for, but if it's gonna earn us some extra points then why not lol

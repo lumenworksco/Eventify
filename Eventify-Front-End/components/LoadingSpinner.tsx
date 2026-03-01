@@ -46,8 +46,8 @@ export default function LoadingSpinner({
           display: 'inline-block',
           width: spinnerSize,
           height: spinnerSize,
-          border: '3px solid #e2e8f0',
-          borderTopColor: '#6366f1',
+          border: '3px solid var(--border)',
+          borderTopColor: 'var(--accent)',
           borderRadius: '50%',
           animation: 'spin 0.8s linear infinite',
         }} 
@@ -56,7 +56,7 @@ export default function LoadingSpinner({
         {message}
       </p>
       {showHint && (
-        <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#6b7280' }}>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--muted)' }}>
           ⏳ The server is waking up from sleep mode. This may take up to 1-2 minutes...
         </p>
       )}
