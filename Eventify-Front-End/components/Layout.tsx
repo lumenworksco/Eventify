@@ -49,9 +49,6 @@ export default function Layout({ children }: { children: ReactNode }) {
               <li>
                 <Link href="/events">{t('nav.events')}</Link>
               </li>
-              <li>
-                <Link href="/venues">{t('nav.venues')}</Link>
-              </li>
               {isAuthenticated && (
                 <li>
                   <Link href="/profile">{t('nav.profile')}</Link>
@@ -162,7 +159,6 @@ export default function Layout({ children }: { children: ReactNode }) {
               <h4 className="footer-heading">{t('footer.explore')}</h4>
               <nav className="footer-links">
                 <Link href="/events">{t('nav.events')}</Link>
-                <Link href="/venues">{t('nav.venues')}</Link>
               </nav>
             </div>
             <div className="footer-section">
